@@ -1,13 +1,12 @@
 package r5a08_findmyword;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WordTest {
     @Test
     public void should_check_one_incorrect_letter(){
-
         // Arrange
         Word word = new Word("E");
 
@@ -15,24 +14,22 @@ public class WordTest {
         Score score = word.guess("B");
 
         // Assert
-        Letter Expected = Letter.INCORRECT ;
-        Letter Actual = score.letter(0);
-
-        assertEquals(Expected, Actual);
+        assertLetterEquals(Letter.INCORRECT, score, 0);
     }
 
     @Test
     public void should_check_one_correct_letter(){
         Word word = new Word("E");
 
-        // Act
         Score score = word.guess("E");
 
-        // Assert
-        Letter Expected = Letter.CORRECT ;
-        Letter Actual = score.letter(0);
+        assertLetterEquals(Letter.CORRECT, score, 0);
+    }
 
-        assertEquals(Expected, Actual);
+    private void assertLetterEquals(Letter expected, Score score, int index) {
+        Letter actual = score.letter(index);
+        Assertions.assertEquals(expected, actual);
     }
 
 }
+
